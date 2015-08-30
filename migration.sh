@@ -60,17 +60,17 @@ do
 		cp "/Users/$folder/$insync" "/Users/$folder/$insync.original" 2>&1 | tee -a ${LOG}
 		
 # Change the server field and append a token field to the end of the file
-		logging "Writing new cfg file. Changing SERVER = line to use cloud.druva.com:6061"
+		logme "Writing new cfg file. Changing SERVER = line to use cloud.druva.com:6061"
 		cat "/Users/$folder/$insync" | sed $'s/SERVERS =.*/SERVERS = [\x27server.address:6061\x27]/' > "/Users/$folder/$insync.new"
 		echo "TOKEN = ' token info goes here '" >> "/Users/$folder/$insync.new"
 		echo "REPLACE_DEVICE= 'Yes'" >> "/Users/$folder/$insync.new"
 
 # Delete the original file
-		logging "Deleting original /Users/$folder/$insync file"
+		logme "Deleting original /Users/$folder/$insync file"
 		rm "/Users/$folder/$insync"
 		
 # Rename the new file in place
-		logging "Putting new file in place"
+		logme "Putting new file in place"
 		mv "/Users/$folder/$insync.new" "/Users/$folder/$insync"
 
 # Owner changes but group does not as we're running as root. Correct this here.
